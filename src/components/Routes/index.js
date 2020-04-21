@@ -9,6 +9,7 @@ import CustomTabBar from '../CustomTabBar';
 
 import userStack from './contexts/userStack';
 import settingStack from './contexts/settingStack';
+import Map from '../../pages/Map';
 
 const IconPerson = ({focused}) => {
   const {theme} = useContext(themeContext);
@@ -22,6 +23,21 @@ const IconPerson = ({focused}) => {
 };
 
 IconPerson.propTypes = {
+  focused: PropTypes.bool.isRequired,
+};
+
+const IconPlace = ({focused}) => {
+  const {theme} = useContext(themeContext);
+  return (
+    <Icon
+      name="place"
+      size={26}
+      color={focused ? theme.tabTextActive : theme.tabTextInative}
+    />
+  );
+};
+
+IconPlace.propTypes = {
   focused: PropTypes.bool.isRequired,
 };
 
@@ -47,6 +63,13 @@ const tab = createBottomTabNavigator(
       navigationOptions: {
         // eslint-disable-next-line react/prop-types
         tabBarIcon: ({focused}) => <IconPerson focused={focused} />,
+      },
+    },
+    map: {
+      screen: Map,
+      navigationOptions: {
+        // eslint-disable-next-line react/prop-types
+        tabBarIcon: ({focused}) => <IconPlace focused={focused} />,
       },
     },
     settings: {
